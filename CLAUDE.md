@@ -26,3 +26,25 @@ No test framework is configured yet.
 ## Paths
 
 `@/*` maps to the project root via `tsconfig.json` paths. Import as `@/app/...`, `@/components/...`, etc.
+
+## 编码规范
+
+- 使用函数组件 + hooks，禁止 class 组件
+- TypeScript 严格模式，不使用 any
+- 提交：遵循 conventional commits 格式 (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`)
+
+## 测试策略
+
+- 暂无测试框架，未来引入 Vitest + React Testing Library
+- 核心逻辑必须有单元测试
+
+## 架构约束
+
+- 单页面应用，所有组件在 `app/page.tsx` 中
+- 如需拆分组件，放到 `app/components/` 目录
+- CSS 统一在 `app/globals.css`，使用 CSS 自定义属性
+
+## 安全约束
+
+- 表单输入必须校验
+- 避免 XSS：不直接注入用户输入到 HTML

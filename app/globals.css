@@ -510,6 +510,12 @@ form {
   grid-column: 1 / -1;
 }
 
+.field-error {
+  color: var(--coral);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 label {
   color: #314044;
   font-weight: 800;

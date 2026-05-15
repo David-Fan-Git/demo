@@ -102,9 +102,23 @@ const steps = [
 
 export default function Home() {
   const [status, setStatus] = useState("");
+  const [errors, setErrors] = useState<{ phone?: string }>({});
+
+  function validate(data: Record<string, FormDataEntryValue>): { phone?: string } {
+    const errs: { phone?: string } = {};
+    const phone = (data.phone as string).trim();
+    if (!/^1\d{10}$/.test(phone)) {
+      errs.phone = "请输入正确的 11 位手机号码";
+    }
+    return errs;
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const data = Object.fromEntries(new FormData(event.currentTarget));
+    const errs = validate(data);
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) return;
     setStatus("预约信息已记录，我们会尽快联系确认。");
     event.currentTarget.reset();
   }
@@ -311,6 +325,7 @@ export default function Home() {
               <div className="field">
                 <label htmlFor="phone">联系电话</label>
                 <input id="phone" name="phone" type="tel" placeholder="请输入手机号" required />
+                {errors.phone && <span className="field-error" role="alert">{errors.phone}</span>}
               </div>
               <div className="field">
                 <label htmlFor="pet">宠物类型</label>
